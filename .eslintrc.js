@@ -94,6 +94,8 @@ module.exports = {
     '@typescript-eslint/quotes': ['error', 'single'],
     semi: ['error', 'never'],
     '@typescript-eslint/semi': ['error', 'never'],
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
     'no-undef': 'off',
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': [
