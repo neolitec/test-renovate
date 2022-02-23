@@ -1,6 +1,7 @@
 import { CircularProgress } from '@mui/material'
 import { useEffect, useState } from 'react'
-import ChartContainer from '../../../../components/Chart'
+import CumulativeChart from '../../charts/CumulativeChart'
+import PaymentsChart from '../../charts/PaymentsChart'
 import type Mortgage from '../../model/Mortgage'
 import type { AmortizationTableRow } from '../../model/Mortgage'
 
@@ -24,69 +25,8 @@ const AmortizationChart = ({ mortgage }: AmortizationChartProps) => {
 
   return (
     <>
-      <ChartContainer
-        config={{
-          type: 'line',
-          data: {
-            labels: amortizationData.map(
-              ({ paymentNumber }) =>
-                `${paymentNumber} year${paymentNumber > 1 ? 's' : ''}`,
-            ),
-            datasets: [
-              {
-                label: 'Balance',
-                pointRadius: 5,
-                data: amortizationData.map(
-                  ({ balance }) => Math.round(balance * 100) / 100,
-                ),
-                borderColor: 'rgb(75, 192, 192)',
-              },
-            ],
-          },
-        }}
-      />
-      <ChartContainer
-        config={{
-          type: 'bar',
-          options: {
-            responsive: true,
-            scales: {
-              xAxis: {
-                stacked: true,
-              },
-              yAxis: {
-                stacked: true,
-              },
-            },
-          },
-          data: {
-            labels: amortizationData
-              .map(
-                ({ paymentNumber }) =>
-                  `${paymentNumber} year${paymentNumber > 1 ? 's' : ''}`,
-              )
-              .slice(1),
-            datasets: [
-              {
-                label: 'Interest',
-                data: amortizationData
-                  .map(({ interest }) => Math.round(interest * 100) / 100)
-                  .slice(1),
-                borderColor: 'rgb(140, 165, 233)',
-                backgroundColor: 'rgb(140, 165, 233)',
-              },
-              {
-                label: 'Principal',
-                data: amortizationData
-                  .map(({ principal }) => Math.round(principal * 100) / 100)
-                  .slice(1),
-                borderColor: 'rgb(77, 75, 192)',
-                backgroundColor: 'rgb(77, 75, 192)',
-              },
-            ],
-          },
-        }}
-      />
+      <CumulativeChart table={amortizationData} />
+      <PaymentsChart table={amortizationData} />
     </>
   )
 }

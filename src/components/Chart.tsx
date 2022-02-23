@@ -6,6 +6,10 @@ import { useLayoutEffect, useRef } from 'react'
 
 const DEFAULT_CONFIG = {
   options: {
+    interaction: {
+      intersect: false,
+      mode: 'index',
+    },
     scales: {
       xAxis: {
         grid: {

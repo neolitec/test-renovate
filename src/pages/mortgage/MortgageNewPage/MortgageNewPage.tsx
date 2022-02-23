@@ -10,11 +10,15 @@ import {
   Select,
   TextField,
 } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BackButton from '../../../components/BackButton'
+import DescriptionLine from '../../../components/DescriptionLine'
 import NumberTextField from '../../../components/NumberTextField'
+import { safeFormatAmount } from '../../../lib/number'
+import CumulativeChart from '../charts/CumulativeChart'
 import useMortgageForm from '../hooks/useMortgageForm'
-import type { PaymentFrequency } from '../model/Mortgage'
+import type { AmortizationTableRow, PaymentFrequency } from '../model/Mortgage'
 import useMortgageStore from '../store/useMortgageStore'
 
 const MortgageNewPage = () => {
@@ -32,6 +36,13 @@ const MortgageNewPage = () => {
     mortgage,
     isFormComplete,
   } = useMortgageForm()
+  const [amortizationTable, setAmortizationTable] = useState<
+    AmortizationTableRow[] | null
+  >(null)
+
+  useEffect(() => {
+    setAmortizationTable(mortgage ? mortgage.getAmortizationTable() : null)
+  }, [mortgage])
 
   return (
     <Container
@@ -154,7 +165,23 @@ const MortgageNewPage = () => {
           Create and Calculate
         </Button>
       </Box>
-      <Divider />
+
+      {mortgage && (
+        <>
+          <Divider />
+          <DescriptionLine
+            label="Payments"
+            value={safeFormatAmount(mortgage.getPayment())}
+          />
+          <DescriptionLine
+            label="Total interest"
+            value={safeFormatAmount(mortgage.getTotalInterest())}
+          />
+          <Divider />
+        </>
+      )}
+
+      {amortizationTable && <CumulativeChart table={amortizationTable} />}
     </Container>
   )
 }
