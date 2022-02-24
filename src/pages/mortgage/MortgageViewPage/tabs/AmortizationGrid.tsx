@@ -65,7 +65,7 @@ const AmortizationGrid = ({ mortgage }: AmortizationGridProps) => {
 
   useEffect(() => {
     if (mortgage) {
-      setAmortizationData(mortgage.getAmortizationTable())
+      setAmortizationData(mortgage.getAmortizationTable({ perYear: false }))
     }
   }, [mortgage])
 

@@ -9,8 +9,9 @@ export enum PaymentFrequency {
 
 export const PaymentsPerYear: Record<PaymentFrequency, number> = {
   [PaymentFrequency.Monthly]: 12,
-  [PaymentFrequency.Weekly]: 365 / 7,
-  [PaymentFrequency.BiWeekly]: 365 / 14,
+  // [PaymentFrequency.Weekly]: (365 * 4 + 1) / 4 / 7,
+  [PaymentFrequency.Weekly]: 52,
+  [PaymentFrequency.BiWeekly]: 26,
 }
 
 export interface IMortgage {

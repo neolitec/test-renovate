@@ -113,22 +113,34 @@ const MortgageNewPage = () => {
           gap: (t) => t.spacing(2),
         }}
       >
-        <NumberTextField
-          label="Amortization Period"
-          sx={{ flex: 1 }}
-          value={amortizationPeriod}
-          onChange={(value) => setState({ amortization: value })}
-          NumberFormatProps={{
-            decimalScale: 0,
-          }}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                year{Number(amortizationPeriod) > 1 && 's'}
-              </InputAdornment>
-            ),
-          }}
-        />
+        <FormControl sx={{ flex: 1 }}>
+          <InputLabel id="amortization-period-label">
+            Payment Frequency
+          </InputLabel>
+          <Select
+            labelId="amortization-period-label"
+            id="amortization-period"
+            value={amortizationPeriod}
+            onChange={(event) => {
+              if (
+                (Number.isInteger as (input: any) => input is number)(
+                  event.target.value,
+                )
+              ) {
+                setState({
+                  amortization: event.target.value,
+                })
+              }
+            }}
+            label="amortization-period"
+          >
+            {[...Array(30).keys()].map((i) => (
+              <MenuItem value={i + 1}>
+                {i + 1} year{i > 0 ? 's' : ''}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <FormControl sx={{ flex: 1 }}>
           <InputLabel id="payment-frequency-label">
             Payment Frequency
@@ -145,7 +157,7 @@ const MortgageNewPage = () => {
             label="Payment Frequency"
           >
             <MenuItem value="monthly">Monthly</MenuItem>
-            <MenuItem value="bi-weekly">Bi-weekly</MenuItem>
+            <MenuItem value="biweekly">Bi-weekly</MenuItem>
             <MenuItem value="weekly">Weekly</MenuItem>
           </Select>
         </FormControl>
