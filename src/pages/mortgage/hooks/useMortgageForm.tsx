@@ -7,6 +7,7 @@ const DEFAULT_FORM_DATA: MorgageFormData = {
   interestRate: null,
   amortization: 25,
   paymentFrequency: PaymentFrequency.Monthly,
+  downPayment: null,
 }
 
 interface MorgageFormData {
@@ -15,6 +16,7 @@ interface MorgageFormData {
   interestRate: number | null
   amortization: number
   paymentFrequency: PaymentFrequency
+  downPayment: number | null
 }
 
 interface FormController<T extends object> {
@@ -22,10 +24,14 @@ interface FormController<T extends object> {
   setState: (newValues: Partial<T>) => void
   isFormComplete: boolean
   mortgage?: Mortgage
+  showAdvancedOptions: () => void
+  isAdvancedOptionsVisible: boolean
 }
 
 const useMortgageForm = (): FormController<MorgageFormData> => {
   const [state, setState] = useState<MorgageFormData>(DEFAULT_FORM_DATA)
+  const [isAdvancedOptionsVisible, setIsAdvancedOptionsVisible] =
+    useState(false)
   const [mortgage, setMortgage] = useState<Mortgage | undefined>()
 
   const isFormComplete = useMemo(
@@ -48,6 +54,7 @@ const useMortgageForm = (): FormController<MorgageFormData> => {
           interestRate: state.interestRate || 0,
           amortization: state.amortization || 0,
           paymentFrequency: state.paymentFrequency,
+          downPayment: state.downPayment || 0,
         }),
       )
     }
@@ -58,7 +65,12 @@ const useMortgageForm = (): FormController<MorgageFormData> => {
     state.interestRate,
     state.name,
     state.paymentFrequency,
+    state.downPayment,
   ])
+
+  const showAdvancedOptions = () => {
+    setIsAdvancedOptionsVisible(true)
+  }
 
   return {
     state,
@@ -70,6 +82,8 @@ const useMortgageForm = (): FormController<MorgageFormData> => {
     },
     isFormComplete,
     mortgage,
+    showAdvancedOptions,
+    isAdvancedOptionsVisible,
   }
 }
 

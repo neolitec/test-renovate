@@ -3,10 +3,11 @@ import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 interface BackButtonProps {
+  label?: string
   to?: string
 }
 
-const BackButton = ({ to }: BackButtonProps) => {
+const BackButton = ({ label, to }: BackButtonProps) => {
   const navigate = useNavigate()
 
   const navigateBack = () => {
@@ -25,7 +26,7 @@ const BackButton = ({ to }: BackButtonProps) => {
         }
       }}
     >
-      Back
+      {label || 'Back'}
     </Button>
   )
 }

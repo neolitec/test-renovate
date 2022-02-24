@@ -91,7 +91,7 @@ describe(Mortgage, () => {
       it('should calculate monthly payment', () => {
         const monthlyPayment = A_WEEKLY_MORTGAGE.getPayment()
 
-        expect(monthlyPayment).toBeCloseTo(268.09, 2)
+        expect(monthlyPayment).toBeCloseTo(268.83, 2)
       })
     })
 
@@ -99,7 +99,7 @@ describe(Mortgage, () => {
       it('should calculate total payment', () => {
         const totalPayment = A_WEEKLY_MORTGAGE.getTotalPayment()
 
-        expect(totalPayment).toBeCloseTo(349473.4, 2)
+        expect(totalPayment).toBeCloseTo(349473.52, 2)
       })
     })
 
@@ -107,7 +107,7 @@ describe(Mortgage, () => {
       it('should calculate total interest', () => {
         const totalInterest = A_WEEKLY_MORTGAGE.getTotalInterest()
 
-        expect(totalInterest).toBeCloseTo(61473.4, 2)
+        expect(totalInterest).toBeCloseTo(61473.52, 2)
       })
     })
   })
@@ -117,7 +117,7 @@ describe(Mortgage, () => {
       it('should calculate monthly payment', () => {
         const monthlyPayment = A_BIWEEKLY_MORTGAGE.getPayment()
 
-        expect(monthlyPayment).toBeCloseTo(536.25, 2)
+        expect(monthlyPayment).toBeCloseTo(537.72, 2)
       })
     })
 
@@ -125,7 +125,7 @@ describe(Mortgage, () => {
       it('should calculate total payment', () => {
         const totalPayment = A_BIWEEKLY_MORTGAGE.getTotalPayment()
 
-        expect(totalPayment).toBeCloseTo(349516.99, 2)
+        expect(totalPayment).toBeCloseTo(349517.23, 2)
       })
     })
 
@@ -133,7 +133,7 @@ describe(Mortgage, () => {
       it('should calculate total interest', () => {
         const totalInterest = A_BIWEEKLY_MORTGAGE.getTotalInterest()
 
-        expect(totalInterest).toBeCloseTo(61516.99, 2)
+        expect(totalInterest).toBeCloseTo(61517.23, 2)
       })
     })
   })

@@ -1,3 +1,4 @@
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import {
   Box,
   Button,
@@ -15,7 +16,7 @@ import { useNavigate } from 'react-router-dom'
 import BackButton from '../../../components/BackButton'
 import DescriptionLine from '../../../components/DescriptionLine'
 import NumberTextField from '../../../components/NumberTextField'
-import { safeFormatAmount } from '../../../lib/number'
+import { formatPercentage, safeFormatAmount } from '../../../lib/number'
 import CumulativeChart from '../charts/CumulativeChart'
 import useMortgageForm from '../hooks/useMortgageForm'
 import type { AmortizationTableRow, PaymentFrequency } from '../model/Mortgage'
@@ -31,10 +32,13 @@ const MortgageNewPage = () => {
       interestRate,
       amortization: amortizationPeriod,
       paymentFrequency,
+      downPayment,
     },
     setState,
     mortgage,
     isFormComplete,
+    isAdvancedOptionsVisible,
+    showAdvancedOptions,
   } = useMortgageForm()
   const [amortizationTable, setAmortizationTable] = useState<
     AmortizationTableRow[] | null
@@ -164,7 +168,50 @@ const MortgageNewPage = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box>
+      {isAdvancedOptionsVisible && (
+        <>
+          <Divider />
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: (t) => t.spacing(2),
+            }}
+          >
+            <NumberTextField
+              autoFocus={isAdvancedOptionsVisible}
+              label="Down payment"
+              sx={{ flex: 1 }}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">$</InputAdornment>,
+              }}
+              value={downPayment}
+              onChange={(value) => setState({ downPayment: value })}
+            />
+          </Box>
+        </>
+      )}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: isAdvancedOptionsVisible
+            ? 'flex-end'
+            : 'space-between',
+        }}
+      >
+        {!isAdvancedOptionsVisible && (
+          <Button
+            sx={{ float: 'right' }}
+            variant="text"
+            endIcon={<KeyboardArrowDownIcon />}
+            onClick={() => {
+              showAdvancedOptions()
+            }}
+          >
+            Advanced options
+          </Button>
+        )}
         <Button
           sx={{ float: 'right' }}
           variant="contained"
@@ -183,6 +230,16 @@ const MortgageNewPage = () => {
       {mortgage && (
         <>
           <Divider />
+          <DescriptionLine
+            label="Down payment"
+            value={`${safeFormatAmount(
+              mortgage.downPayment,
+            )} (${formatPercentage(mortgage.getDownPaymentInPercent() / 100)})`}
+          />
+          <DescriptionLine
+            label="Credit amount"
+            value={safeFormatAmount(mortgage.getCreditAmount())}
+          />
           <DescriptionLine
             label="Payments"
             value={safeFormatAmount(mortgage.getPayment())}

@@ -29,7 +29,7 @@ const MortgageViewPage = () => {
             pb: (t) => t.spacing(2),
           }}
         >
-          <BackButton />
+          <BackButton label="Back to list" to="/mortgage" />
           <h1>{mortgage.name}</h1>
         </Box>
       </Box>

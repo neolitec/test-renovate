@@ -1,7 +1,11 @@
 import { Box, Divider } from '@mui/material'
 import { useEffect, useState } from 'react'
 import DescriptionLine from '../../../../components/DescriptionLine'
-import { safeFormatAmount, safeFormatPercentage } from '../../../../lib/number'
+import {
+  formatPercentage,
+  safeFormatAmount,
+  safeFormatPercentage,
+} from '../../../../lib/number'
 import type Mortgage from '../../model/Mortgage'
 
 interface MortgageDetailsProps {
@@ -25,7 +29,7 @@ const MortgageDetails = ({ mortgage }: MortgageDetailsProps) => {
     <Box
       sx={{
         mx: 'auto',
-        maxWidth: '300px',
+        maxWidth: 'sm',
         display: 'flex',
         flexDirection: 'column',
         gap: (t) => t.spacing(2),
@@ -47,6 +51,16 @@ const MortgageDetails = ({ mortgage }: MortgageDetailsProps) => {
       />
       <DescriptionLine label="Payments frequency" value="monthly" />
       <Divider />
+      <DescriptionLine
+        label="Down payment"
+        value={`${safeFormatAmount(mortgage.downPayment)} (${formatPercentage(
+          mortgage.getDownPaymentInPercent() / 100,
+        )})`}
+      />
+      <DescriptionLine
+        label="Credit amount"
+        value={safeFormatAmount(mortgage.getCreditAmount())}
+      />
       <DescriptionLine
         label="Monthly payment"
         value={safeFormatAmount(monthlyPayment)}

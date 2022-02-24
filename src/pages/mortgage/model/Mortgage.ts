@@ -39,6 +39,10 @@ export interface IMortgage {
    * Payment frequency
    */
   paymentFrequency: PaymentFrequency
+  /**
+   * The initial payment
+   */
+  downPayment?: number
 }
 
 export interface AmortizationTableRow {
@@ -65,6 +69,8 @@ class Mortgage implements IMortgage {
 
   readonly paymentFrequency: PaymentFrequency = PaymentFrequency.Monthly
 
+  readonly downPayment: number = 0
+
   constructor({
     id,
     name,
@@ -72,6 +78,7 @@ class Mortgage implements IMortgage {
     interestRate,
     amortization,
     paymentFrequency,
+    downPayment,
   }: Omit<IMortgage, 'id'> & { id?: string }) {
     this.id = id || nanoid()
     this.name = name
@@ -79,6 +86,7 @@ class Mortgage implements IMortgage {
     this.interestRate = interestRate
     this.amortization = amortization
     this.paymentFrequency = paymentFrequency
+    this.downPayment = downPayment || 0
   }
 
   set name(name: string) {
@@ -98,7 +106,15 @@ class Mortgage implements IMortgage {
     const top =
       subdividedInterestRate * (1 + subdividedInterestRate) ** totalPaymentCount
     const bottom = (1 + subdividedInterestRate) ** totalPaymentCount - 1
-    return this.amount * (top / bottom)
+    return this.getCreditAmount() * (top / bottom)
+  }
+
+  getCreditAmount(): number {
+    return this.amount - this.downPayment
+  }
+
+  getDownPaymentInPercent(): number {
+    return (100 * this.downPayment) / this.amount
   }
 
   getTotalPaymentCount(): number {
@@ -116,7 +132,7 @@ class Mortgage implements IMortgage {
 
   getTotalInterest(): number {
     const totalPayment = this.getTotalPayment()
-    const totalInterest = totalPayment - this.amount
+    const totalInterest = totalPayment - this.getCreditAmount()
     return totalInterest
   }
 
@@ -133,7 +149,7 @@ class Mortgage implements IMortgage {
       principalAcc: 0,
       paid: 0,
       paidAcc: 0,
-      balance: this.amount,
+      balance: this.getCreditAmount(),
     }
 
     const amortizationTablePerPayment = this.getAmortizationTablePerPayment()
@@ -174,7 +190,7 @@ class Mortgage implements IMortgage {
   private getAmortizationTablePerPayment(): AmortizationTableRow[] {
     const table: AmortizationTableRow[] = []
 
-    let prevBalance = this.amount
+    let prevBalance = this.getCreditAmount()
     let prevInterest = 0
     let prevPrincipal = 0
     for (let i = 0; i < this.getTotalPaymentCount(); i += 1) {
