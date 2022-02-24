@@ -1,11 +1,19 @@
 import { useEffect, useMemo, useState } from 'react'
 import Mortgage, { PaymentFrequency } from '../model/Mortgage'
 
+const DEFAULT_FORM_DATA: MorgageFormData = {
+  name: '',
+  amount: null,
+  interestRate: null,
+  amortization: 25,
+  paymentFrequency: PaymentFrequency.Monthly,
+}
+
 interface MorgageFormData {
   name: string
   amount: number | null
   interestRate: number | null
-  amortization: number | null
+  amortization: number
   paymentFrequency: PaymentFrequency
 }
 
@@ -17,13 +25,7 @@ interface FormController<T extends object> {
 }
 
 const useMortgageForm = (): FormController<MorgageFormData> => {
-  const [state, setState] = useState<MorgageFormData>({
-    name: '',
-    amount: null,
-    interestRate: null,
-    amortization: null,
-    paymentFrequency: PaymentFrequency.Monthly,
-  })
+  const [state, setState] = useState<MorgageFormData>(DEFAULT_FORM_DATA)
   const [mortgage, setMortgage] = useState<Mortgage | undefined>()
 
   const isFormComplete = useMemo(

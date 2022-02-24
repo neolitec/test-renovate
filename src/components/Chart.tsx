@@ -2,7 +2,7 @@ import type { ChartConfiguration, ChartType, DefaultDataPoint } from 'chart.js'
 import Chart from 'chart.js/auto'
 import { merge } from 'lodash-es'
 import type { HTMLAttributes } from 'react'
-import { useLayoutEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 const DEFAULT_CONFIG = {
   options: {
@@ -49,7 +49,7 @@ const ChartContainer = <
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const chartInstance = useRef<Chart<TType, TData, TLabel>>()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (canvasRef.current) {
       chartInstance.current = new Chart(
         canvasRef.current,
@@ -62,6 +62,7 @@ const ChartContainer = <
         chartInstance.current.destroy()
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config])
 
   return <canvas {...rest} ref={canvasRef} />

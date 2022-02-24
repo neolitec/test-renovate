@@ -55,7 +55,7 @@ export interface AmortizationTableRow {
 class Mortgage implements IMortgage {
   readonly id: string
 
-  readonly name: string
+  private _name = ''
 
   readonly amount: number
 
@@ -79,6 +79,16 @@ class Mortgage implements IMortgage {
     this.interestRate = interestRate
     this.amortization = amortization
     this.paymentFrequency = paymentFrequency
+  }
+
+  set name(name: string) {
+    // eslint-disable-next-line no-underscore-dangle
+    this._name = name
+  }
+
+  get name(): string {
+    // eslint-disable-next-line no-underscore-dangle
+    return this._name
   }
 
   getPayment(): number {
