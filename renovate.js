@@ -7,7 +7,8 @@ module.exports = {
   gitAuthor: 'Renovate Bot <bot@renovateapp.com>',
   onboarding: false,
   platform: 'github',
-  repositories: [pkg.name],
+  repositories: ['neolitec/test-renovate'],
+  labels: ['dependencies'],
   packageRules: [
     {
       description: 'lockFileMaintenance',
