@@ -4,6 +4,8 @@ on:
   #   cron: '0/15 * * * *'
   - pull_request
   - push
+env:
+  RENOVATE_TRACING_CONSOLE_EXPORTER: 1
 jobs:
   renovate:
     runs-on: ubuntu-latest
