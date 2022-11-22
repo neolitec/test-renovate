@@ -11,7 +11,7 @@ specifiers:
   '@types/jest': ^27.4.0
   '@types/lodash-es': ^4.17.6
   '@types/react': ^17.0.33
-  '@types/react-dom': ^17.0.10
+  '@types/react-dom': 18.0.9
   '@types/styled-components': ^5.1.23
   '@typescript-eslint/eslint-plugin': ^5.6.0
   '@typescript-eslint/parser': ^5.6.0
@@ -70,7 +70,7 @@ devDependencies:
   '@types/jest': 27.5.2
   '@types/lodash-es': 4.17.6
   '@types/react': 17.0.52
-  '@types/react-dom': 17.0.18
+  '@types/react-dom': 18.0.9
   '@types/styled-components': 5.1.26
   '@typescript-eslint/eslint-plugin': 5.44.0_e2lvjb2eg2mgv3h5oqf6kw3to4
   '@typescript-eslint/parser': 5.44.0_77fvizpdb3y4icyeo2mf4eo7em
@@ -2241,8 +2241,8 @@ packages:
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
 
-  /@types/react-dom/17.0.18:
-    resolution: {integrity: sha512-rLVtIfbwyur2iFKykP2w0pl/1unw26b5td16d5xMgp7/yjTHomkyxPYChFoCr/FtEX1lN9wY6lFj1qvKdS5kDw==}
+  /@types/react-dom/18.0.9:
+    resolution: {integrity: sha512-qnVvHxASt/H7i+XG1U1xMiY5t+IHcPGUK7TDMDzom08xa7e86eCeKOiLZezwCKVxJn6NEiiy2ekgX8aQssjIKg==}
     dependencies:
       '@types/react': 17.0.52
     dev: true
