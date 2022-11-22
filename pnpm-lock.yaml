@@ -17,7 +17,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.6.0
   '@vitejs/plugin-react': ^1.0.7
   babel-jest: ^27.5.1
-  chart.js: ^3.7.1
+  chart.js: ^4.0.0
   commitizen: ^4.2.4
   cz-conventional-changelog: 3.3.0
   eslint: ^7.32.0
@@ -52,7 +52,7 @@ dependencies:
   '@mui/material': 5.10.14_gzv7pa6nrbev3fs6gyzn7sadkq
   '@mui/styled-engine-sc': 5.10.14_eayongmbiubxhlvsbyl6yact2u
   '@mui/x-data-grid': 5.17.12_cevn4rzag6j7dxwrlr5mmzf3ga
-  chart.js: 3.9.1
+  chart.js: 4.0.1
   lodash-es: 4.17.21
   moment: 2.29.4
   nanoid: 3.3.4
@@ -2960,8 +2960,9 @@ packages:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
     dev: true
 
-  /chart.js/3.9.1:
-    resolution: {integrity: sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==}
+  /chart.js/4.0.1:
+    resolution: {integrity: sha512-5/8/9eBivwBZK81mKvmIwTb2Pmw4D/5h1RK9fBWZLLZ8mCJ+kfYNmV9rMrGoa5Hgy2/wVDBMLSUDudul2/9ihA==}
+    engines: {pnpm: ^7.0.0}
     dev: false
 
   /ci-info/3.6.1:
